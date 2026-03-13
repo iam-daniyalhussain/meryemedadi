@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 Hugs & Kisses Boutique - For My Love 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #d43f6b;
+            text-shadow: 3px 3px 0 #ffe0e5;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .hugs-balance {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 20px;
+            border-radius: 60px;
+            display: inline-block;
+            font-size: 2em;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(255,107,107,0.3);
+            border: 4px solid white;
+        }
+
+        .hugs-balance span {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        /* Search and Filter Section */
+        .search-section {
+            margin: 30px 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            border: 3px solid #ffb6c1;
+            border-radius: 50px;
+            outline: none;
+            background: white;
+        }
+
+        .search-box:focus {
+            border-color: #d43f6b;
+            box-shadow: 0 0 20px rgba(210, 63, 107, 0.2);
+        }
+
+        .price-filter {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: white;
+            padding: 5px 20px;
+            border-radius: 50px;
+            border: 3px solid #ffb6c1;
+        }
+
+        .price-filter input {
+            width: 100px;
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid #ffe0e5;
+            border-radius: 25px;
+            outline: none;
+            text-align: center;
+        }
+
+        .filter-btn {
+            background: #ffb6c1;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #d43f6b;
+            font-weight: bold;
+            border: 3px solid white;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            background: #d43f6b;
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 25px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 3px solid #ffe0e5;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(210, 63, 107, 0.2);
+            border-color: #ffb6c1;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 3px solid #ffe0e5;
+            transition: transform 0.3s;
+            background: #f9f9f9;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.02);
+        }
+
+        .product-name {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-price {
+            font-size: 2em;
+            color: #d43f6b;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .product-price small {
+            font-size: 0.6em;
+            color: #888;
+            font-weight: normal;
+        }
+
+        .hugs-icon {
+            font-size: 0.9em;
+            margin-right: 5px;
+        }
+
+        .add-to-cart {
+            background: #ffb6c1;
+            border: none;
+            color: #d43f6b;
+            font-size: 1.3em;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 3px solid white;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .add-to-cart:hover {
+            background: #d43f6b;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .cart-section {
+            background: #fff5f7;
+            border-radius: 30px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 3px dashed #ffb6c1;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #d43f6b;
+        }
+
+        .cart-items {
+            min-height: 100px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .cart-item-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .cart-item-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .remove-item {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            margin-left: 15px;
+        }
+
+        .remove-item:hover {
+            background: #ff0000;
+        }
+
+        .cart-total {
+            font-size: 2em;
+            font-weight: bold;
+            color: #d43f6b;
+            text-align: right;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 3px solid #ffb6c1;
+        }
+
+        .checkout-btn {
+            background: linear-gradient(45deg, #6b5b95, #c06c84);
+            color: white;
+            border: none;
+            font-size: 2em;
+            padding: 20px 40px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.3s;
+            border: 4px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .checkout-btn:hover {
+            transform: scale(1.02);
+            background: linear-gradient(45deg, #c06c84, #6b5b95);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .love-message {
+            text-align: center;
+            font-size: 1.5em;
+            color: #d43f6b;
+            margin-top: 20px;
+            font-style: italic;
+            min-height: 80px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #999;
+            font-size: 1.3em;
+            padding: 40px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .no-products {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 50px;
+            font-size: 1.5em;
+            color: #999;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .heart {
+            animation: heartBeat 1s infinite;
+            display: inline-block;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid #ffb6c1;
+            background: white;
+            color: #d43f6b;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: #d43f6b;
+            color: white;
+            border-color: white;
+        }
+
+        .items-per-page {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 5px 20px;
+            border-radius: 50px;
+            border: 3px solid #ffb6c1;
+        }
+
+        .items-per-page select {
+            padding: 8px;
+            font-size: 1.1em;
+            border: 2px solid #ffe0e5;
+            border-radius: 25px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification">✨ Item added to cart! ✨</div>
+
+    <div class="container">
+        <header>
+            <h1>💖 Hugs & Kisses Boutique 💖</h1>
+            <div class="subtitle">For the most special person in my world 🌎</div>
+            <div class="hugs-balance">
+                <span>🫂</span>
+                <span id="hugsBalance">∞</span>
+                <span>Hugs Available</span>
+            </div>
+        </header>
+
+        <!-- Search and Filter Section -->
+        <div class="search-section">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search products..." oninput="filterProducts()">
+            
+            <div class="price-filter">
+                <span>🫂</span>
+                <input type="number" id="minPrice" placeholder="Min" min="0" step="10" onchange="filterProducts()">
+                <span>to</span>
+                <input type="number" id="maxPrice" placeholder="Max" min="0" step="10" onchange="filterProducts()">
+            </div>
+
+            <div class="items-per-page">
+                <span>Show:</span>
+                <select id="itemsPerPage" onchange="changeItemsPerPage()">
+                    <option value="12">12</option>
+                    <option value="24">24</option>
+                    <option value="36">36</option>
+                    <option value="48">48</option>
+                </select>
+            </div>
+
+            <button class="filter-btn" onclick="resetFilters()">❤️ Reset</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+        
+        <!-- Pagination -->
+        <div class="pagination" id="pagination"></div>
+
+        <div class="cart-section">
+            <div class="cart-header">
+                <span>🛍️ Your Shopping Cart</span>
+                <span id="cartCount">0 items</span>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">Your cart is empty... for now! 💕</div>
+            </div>
+            <div class="cart-total" id="cartTotal">
+                Total: 0 hugs
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+                💝 Checkout & Receive Love 💝
+            </button>
+            <div class="love-message" id="loveMessage"></div>
+        </div>
+
+        <div class="footer">
+            Made with <span class="heart">❤️</span> for my love | Hugs are unlimited because my love for you is endless!
+            <br>
+            <small>48 special items just for you! 💕</small>
+        </div>
+    </div>
+
+    <script>
+        // Product catalog with 48 items
+        const products = [];
+        
+        // Generate 48 products with images (01.jpg to 48.jpg)
+        for (let i = 1; i <= 48; i++) {
+            // Create a number with leading zero (01, 02, etc.)
+            const num = i.toString().padStart(2, '0');
+            
+            // Alternate between different product types for variety
+            let name, category, basePrice;
+            
+            if (i <= 16) {
+                category = 'heels';
+                const heels = ['Stiletto Heels', 'Platform Heels', 'Wedge Heels', 'Kitten Heels', 
+                              'Block Heels', 'Cone Heels', 'Pumps', 'Sandals Heels',
+                              'Ankle Boots', 'Knee High Boots', 'Mary Janes', 'Slingbacks',
+                              'Espadrilles', 'Mules', 'Peep Toe', 'Slingback Heels'];
+                name = `👠 ${heels[i-1] || 'Designer Heels'}`;
+                basePrice = 80 + (i % 7) * 10;
+            } else if (i <= 32) {
+                category = 'facewash';
+                const facewashes = ['Rose Glow', 'Honey Dream', 'Green Tea', 'Charcoal Clean',
+                                   'Aloe Vera', 'Vitamin C', 'Fruit Radiance', 'Milk Cream',
+                                   'Cucumber Fresh', 'Tea Tree', 'Lavender Calm', 'Citrus Burst',
+                                   'Berry Bright', 'Coconut Soft', 'Matcha Clean', 'Rice Bright'];
+                name = `🧴 ${facewashes[i-17] || 'Face Wash'}`;
+                basePrice = 50 + (i % 6) * 5;
+            } else {
+                category = 'hairgel';
+                const hairgels = ['Extreme Hold', 'Shine Bright', 'Natural Look', 'Volume Boost',
+                                 'Curl Define', 'Smooth Finish', 'Matte Look', 'Flexible Hold',
+                                 'Beach Waves', 'Texturizing', 'Moisturizing', 'Color Protect',
+                                 'Anti-Frizz', 'Strong Fix', 'Light Hold', 'Professional'];
+                name = `💇 ${hairgels[i-33] || 'Hair Gel'}`;
+                basePrice = 40 + (i % 8) * 5;
+            }
+            
+            products.push({
+                id: i,
+                name: name,
+                image: `images/${num}.jpg`, // Make sure this path matches your folder structure
+                price: basePrice,
+                category: category,
+                description: `Beautiful product #${num} just for you! ✨`
+            });
+        }
+
+        // Shopping cart
+        let cart = [];
+
+        // Pagination variables
+        let currentPage = 1;
+        let itemsPerPage = 12;
+        let filteredProducts = [...products];
+
+        // DOM elements
+        const productsGrid = document.getElementById('productsGrid');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.getElementById('cartCount');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const loveMessage = document.getElementById('loveMessage');
+        const notification = document.getElementById('notification');
+        const searchBox = document.getElementById('searchBox');
+        const minPrice = document.getElementById('minPrice');
+        const maxPrice = document.getElementById('maxPrice');
+        const pagination = document.getElementById('pagination');
+
+        // Render products with pagination
+        function renderProducts() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const productsToShow = filteredProducts.slice(start, end);
+
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = '<div class="no-products">💕 No products found, but my love for you is still infinite! 💕</div>';
+                pagination.innerHTML = '';
+                return;
+            }
+
+            productsGrid.innerHTML = productsToShow.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/250x250?text=Product+${product.id}'">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">
+                        <span class="hugs-icon">🫂</span> ${product.price} hugs
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            `).join('');
+
+            renderPagination();
+        }
+
+        // Render pagination buttons
+        function renderPagination() {
+            const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
+            let paginationHTML = '';
+            
+            for (let i = 1; i <= pageCount; i++) {
+                paginationHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        // Go to specific page
+        window.goToPage = function(page) {
+            currentPage = page;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Change items per page
+        window.changeItemsPerPage = function() {
+            itemsPerPage = parseInt(document.getElementById('itemsPerPage').value);
+            currentPage = 1;
+            filterProducts();
+        };
+
+        // Filter products
+        window.filterProducts = function() {
+            const searchTerm = searchBox.value.toLowerCase();
+            const min = minPrice.value ? parseInt(minPrice.value) : 0;
+            const max = maxPrice.value ? parseInt(maxPrice.value) : Infinity;
+
+            filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                     product.description.toLowerCase().includes(searchTerm);
+                const matchesPrice = product.price >= min && product.price <= max;
+                return matchesSearch && matchesPrice;
+            });
+
+            currentPage = 1;
+            renderProducts();
+        };
+
+        // Reset filters
+        window.resetFilters = function() {
+            searchBox.value = '';
+            minPrice.value = '';
+            maxPrice.value = '';
+            filteredProducts = [...products];
+            currentPage = 1;
+            renderProducts();
+        };
+
+        // Add to cart
+        window.addToCart = function(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                cart.push(product);
+                updateCart();
+                showNotification();
+            }
+        };
+
+        // Remove from cart
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            updateCart();
+        };
+
+        // Update cart display
+        function updateCart() {
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Your cart is empty... for now! 💕</div>';
+            } else {
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div class="cart-item-name">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image" onerror="this.src='https://via.placeholder.com/50x50'">
+                            <span>${item.name}</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span>🫂 ${item.price} hugs</span>
+                            <button class="remove-item" onclick="removeFromCart(${index})">×</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const totalHugs = cart.reduce((sum, item) => sum + item.price, 0);
+            cartTotal.innerHTML = `Total: 🫂 ${totalHugs} hugs`;
+            cartCount.innerHTML = `${cart.length} ${cart.length === 1 ? 'item' : 'items'}`;
+        }
+
+        // Show notification
+        function showNotification() {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+
+        // Checkout
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                loveMessage.innerHTML = '💕 Add some items first, my love! 💕';
+                return;
+            }
+
+            const totalHugs = cart.reduce((sum, item) => sum + item.price, 0);
+            const items = cart.map(item => item.name).join(', ');
+            
+            // Count items by category
+            const heelsCount = cart.filter(item => item.category === 'heels').length;
+            const facewashCount = cart.filter(item => item.category === 'facewash').length;
+            const hairgelCount = cart.filter(item => item.category === 'hairgel').length;
+            
+            let specialMessage = '';
+            if (heelsCount > 0) specialMessage += ` You'll look amazing in those ${heelsCount} ${heelsCount === 1 ? 'pair' : 'pairs'} of heels! 👠 `;
+            if (facewashCount > 0) specialMessage += ` Your skin will glow even more with ${facewashCount} ${facewashCount === 1 ? 'face wash' : 'face washes'}! ✨ `;
+            if (hairgelCount > 0) specialMessage += ` Your hair will be perfect with ${hairgelCount} ${hairgelCount === 1 ? 'gel' : 'gels'}! 💇 `;
+
+            loveMessage.innerHTML = `💖 Yay! You've chosen ${cart.length} special items! That'll be ${totalHugs} hugs! ${specialMessage} I can't wait to give them to you! 💖`;
+            
+            // Clear cart after checkout
+            cart = [];
+            updateCart();
+            
+            // Celebrate!
+            confettiEffect();
+        });
+
+        // Simple confetti effect
+        function confettiEffect() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.fontSize = '20px';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.innerHTML = ['💖','💕','💗','💓','💘','🫂','👠','🧴','💇'][Math.floor(Math.random() * 9)];
+                    document.body.appendChild(confetti);
+                    
+                    let animation = confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: 'translateY(100vh) rotate(720deg)', opacity: 0 }
+                    ], {
+                        duration: 3000 + Math.random() * 2000,
+                        easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+                    });
+                    
+                    animation.onfinish = () => confetti.remove();
+                }, i * 30);
+            }
+        }
+
+        // Initialize
+        renderProducts();
+
+        // Add hover effect for hugs balance
+        document.querySelector('.hugs-balance').addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+            this.style.transition = 'transform 0.3s';
+        });
+        
+        document.querySelector('.hugs-balance').addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+
+        // Keyboard shortcut for search (press '/' to focus search)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '/' && !searchBox.matches(':focus')) {
+                e.preventDefault();
+                searchBox.focus();
+            }
+        });
+    </script>
+</body>
+</html>
