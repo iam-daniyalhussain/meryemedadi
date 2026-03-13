@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💝 Hugs & Kisses Boutique - For My Love 💝</title>
+    <title>💝 Meryeme Dadi Store - For My Love 💝</title>
     <style>
         * {
             margin: 0;
@@ -170,16 +170,7 @@
             transform: scale(1.02);
         }
 
-        .product-name {
-            font-size: 1.5em;
-            color: #333;
-            margin-bottom: 10px;
-            font-weight: 600;
-            min-height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* Removed product-name styles since we're not showing names */
 
         .product-price {
             font-size: 2em;
@@ -300,7 +291,7 @@
         }
 
         .checkout-btn {
-            background: linear-gradient(45deg, #6b5b95, #c06c84);
+            background: linear-gradient(45deg, #25D366, #128C7E);
             color: white;
             border: none;
             font-size: 2em;
@@ -311,18 +302,26 @@
             width: 100%;
             transition: transform 0.3s;
             border: 4px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
         .checkout-btn:hover {
             transform: scale(1.02);
-            background: linear-gradient(45deg, #c06c84, #6b5b95);
+            background: linear-gradient(45deg, #128C7E, #25D366);
         }
 
         .checkout-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
+        }
+
+        .whatsapp-icon {
+            font-size: 1.5em;
         }
 
         .love-message {
@@ -437,7 +436,7 @@
 
     <div class="container">
         <header>
-            <h1>💖 Hugs & Kisses Boutique 💖</h1>
+            <h1>💖 Meryeme Dadi Store 💖</h1>
             <div class="subtitle">For the most special person in my world 🌎</div>
             <div class="hugs-balance">
                 <span>🫂</span>
@@ -487,20 +486,22 @@
                 Total: 0 hugs
             </div>
             <button class="checkout-btn" id="checkoutBtn">
-                💝 Checkout & Receive Love 💝
+                <span class="whatsapp-icon">📱</span>
+                💝 Pay with WhatsApp 💝
+                <span class="whatsapp-icon">💬</span>
             </button>
             <div class="love-message" id="loveMessage"></div>
         </div>
 
         <div class="footer">
-            Made with <span class="heart">❤️</span> for my love | Hugs are unlimited because my love for you is endless!
+            Made with <span class="heart">❤️</span> for Meryeme Dadi | Hugs are unlimited because my love for you is endless!
             <br>
             <small>48 special items just for you! 💕</small>
         </div>
     </div>
 
     <script>
-        // Product catalog with 48 items
+        // Product catalog with 48 items - NO NAMES, just images
         const products = [];
         
         // Generate 48 products with images (01.jpg to 48.jpg)
@@ -508,42 +509,14 @@
             // Create a number with leading zero (01, 02, etc.)
             const num = i.toString().padStart(2, '0');
             
-            // Alternate between different product types for variety
-            let name, category, basePrice;
-            
-            if (i <= 16) {
-                category = 'heels';
-                const heels = ['Stiletto Heels', 'Platform Heels', 'Wedge Heels', 'Kitten Heels', 
-                              'Block Heels', 'Cone Heels', 'Pumps', 'Sandals Heels',
-                              'Ankle Boots', 'Knee High Boots', 'Mary Janes', 'Slingbacks',
-                              'Espadrilles', 'Mules', 'Peep Toe', 'Slingback Heels'];
-                name = `👠 ${heels[i-1] || 'Designer Heels'}`;
-                basePrice = 80 + (i % 7) * 10;
-            } else if (i <= 32) {
-                category = 'facewash';
-                const facewashes = ['Rose Glow', 'Honey Dream', 'Green Tea', 'Charcoal Clean',
-                                   'Aloe Vera', 'Vitamin C', 'Fruit Radiance', 'Milk Cream',
-                                   'Cucumber Fresh', 'Tea Tree', 'Lavender Calm', 'Citrus Burst',
-                                   'Berry Bright', 'Coconut Soft', 'Matcha Clean', 'Rice Bright'];
-                name = `🧴 ${facewashes[i-17] || 'Face Wash'}`;
-                basePrice = 50 + (i % 6) * 5;
-            } else {
-                category = 'hairgel';
-                const hairgels = ['Extreme Hold', 'Shine Bright', 'Natural Look', 'Volume Boost',
-                                 'Curl Define', 'Smooth Finish', 'Matte Look', 'Flexible Hold',
-                                 'Beach Waves', 'Texturizing', 'Moisturizing', 'Color Protect',
-                                 'Anti-Frizz', 'Strong Fix', 'Light Hold', 'Professional'];
-                name = `💇 ${hairgels[i-33] || 'Hair Gel'}`;
-                basePrice = 40 + (i % 8) * 5;
-            }
+            // Random price between 40-200 hugs
+            const basePrice = 40 + Math.floor(Math.random() * 160);
             
             products.push({
                 id: i,
-                name: name,
-                image: `images/${num}.jpg`, // Make sure this path matches your folder structure
+                image: `images/${num}.jpg`,
                 price: basePrice,
-                category: category,
-                description: `Beautiful product #${num} just for you! ✨`
+                description: `Product #${num}` // Used for search only
             });
         }
 
@@ -568,6 +541,9 @@
         const maxPrice = document.getElementById('maxPrice');
         const pagination = document.getElementById('pagination');
 
+        // WhatsApp number (your number)
+        const WHATSAPP_NUMBER = '+923086649113';
+
         // Render products with pagination
         function renderProducts() {
             const start = (currentPage - 1) * itemsPerPage;
@@ -582,8 +558,10 @@
 
             productsGrid.innerHTML = productsToShow.map(product => `
                 <div class="product-card">
-                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/250x250?text=Product+${product.id}'">
-                    <div class="product-name">${product.name}</div>
+                    <img src="${product.image}" 
+                         alt="Product ${product.id}" 
+                         class="product-image" 
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/250x250?text=✨'">
                     <div class="product-price">
                         <span class="hugs-icon">🫂</span> ${product.price} hugs
                     </div>
@@ -629,8 +607,9 @@
             const max = maxPrice.value ? parseInt(maxPrice.value) : Infinity;
 
             filteredProducts = products.filter(product => {
-                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                     product.description.toLowerCase().includes(searchTerm);
+                // Search by product ID since we removed names
+                const matchesSearch = product.id.toString().includes(searchTerm) || 
+                                     searchTerm === '';
                 const matchesPrice = product.price >= min && product.price <= max;
                 return matchesSearch && matchesPrice;
             });
@@ -673,8 +652,8 @@
                 cartItems.innerHTML = cart.map((item, index) => `
                     <div class="cart-item">
                         <div class="cart-item-name">
-                            <img src="${item.image}" alt="${item.name}" class="cart-item-image" onerror="this.src='https://via.placeholder.com/50x50'">
-                            <span>${item.name}</span>
+                            <img src="${item.image}" alt="Product ${item.id}" class="cart-item-image" onerror="this.src='https://via.placeholder.com/50x50'">
+                            <span>Product #${item.id.toString().padStart(2, '0')}</span>
                         </div>
                         <div style="display: flex; align-items: center;">
                             <span>🫂 ${item.price} hugs</span>
@@ -697,7 +676,7 @@
             }, 2000);
         }
 
-        // Checkout
+        // Checkout with WhatsApp
         checkoutBtn.addEventListener('click', function() {
             if (cart.length === 0) {
                 loveMessage.innerHTML = '💕 Add some items first, my love! 💕';
@@ -705,23 +684,31 @@
             }
 
             const totalHugs = cart.reduce((sum, item) => sum + item.price, 0);
-            const items = cart.map(item => item.name).join(', ');
             
-            // Count items by category
-            const heelsCount = cart.filter(item => item.category === 'heels').length;
-            const facewashCount = cart.filter(item => item.category === 'facewash').length;
-            const hairgelCount = cart.filter(item => item.category === 'hairgel').length;
+            // Create a list of items for WhatsApp message
+            const itemsList = cart.map((item, index) => 
+                `• Product #${item.id.toString().padStart(2, '0')} - 🫂 ${item.price} hugs`
+            ).join('%0A');
             
-            let specialMessage = '';
-            if (heelsCount > 0) specialMessage += ` You'll look amazing in those ${heelsCount} ${heelsCount === 1 ? 'pair' : 'pairs'} of heels! 👠 `;
-            if (facewashCount > 0) specialMessage += ` Your skin will glow even more with ${facewashCount} ${facewashCount === 1 ? 'face wash' : 'face washes'}! ✨ `;
-            if (hairgelCount > 0) specialMessage += ` Your hair will be perfect with ${hairgelCount} ${hairgelCount === 1 ? 'gel' : 'gels'}! 💇 `;
-
-            loveMessage.innerHTML = `💖 Yay! You've chosen ${cart.length} special items! That'll be ${totalHugs} hugs! ${specialMessage} I can't wait to give them to you! 💖`;
+            // Create WhatsApp message
+            const message = `💖 *New Order from Meryeme Dadi Store* 💖%0A%0A` +
+                           `*Items Ordered:*%0A${itemsList}%0A%0A` +
+                           `*Total:* 🫂 ${totalHugs} hugs%0A%0A` +
+                           `Can't wait to receive my hugs! 🥰%0A` +
+                           `Love you! 💕`;
             
-            // Clear cart after checkout
+            // Create WhatsApp URL
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            
+            // Show sweet message
+            loveMessage.innerHTML = `💖 Opening WhatsApp to send your order! 💖`;
+            
+            // Clear cart
             cart = [];
             updateCart();
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappUrl, '_blank');
             
             // Celebrate!
             confettiEffect();
@@ -738,7 +725,7 @@
                     confetti.style.fontSize = '20px';
                     confetti.style.zIndex = '9999';
                     confetti.style.pointerEvents = 'none';
-                    confetti.innerHTML = ['💖','💕','💗','💓','💘','🫂','👠','🧴','💇'][Math.floor(Math.random() * 9)];
+                    confetti.innerHTML = ['💖','💕','💗','💓','💘','🫂','✨','💫','⭐'][Math.floor(Math.random() * 9)];
                     document.body.appendChild(confetti);
                     
                     let animation = confetti.animate([
