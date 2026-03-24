@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💖 Surprise for My Love 💖</title>
+<title>💖 Love Game 💖</title>
 
 <style>
 body {
@@ -18,18 +18,26 @@ body {
     overflow: hidden;
 }
 
-.container {
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
     color: #d43f6b;
 }
 
+.active {
+    display: flex;
+}
+
 button {
-    font-size: 2em;
-    padding: 20px 40px;
+    font-size: 1.5em;
+    padding: 15px 30px;
     border-radius: 50px;
     border: none;
     background: #ff6b6b;
     color: white;
     cursor: pointer;
+    margin-top: 20px;
     transition: 0.3s;
 }
 
@@ -38,58 +46,111 @@ button:hover {
     background: #d43f6b;
 }
 
-#imageContainer {
-    display: none;
-    margin-top: 20px;
-}
-
-img {
+#image {
     max-width: 300px;
     border-radius: 20px;
+    margin-top: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.whatsapp {
+    background: #25D366;
+}
+
+.typewriter {
+    font-size: 1.8em;
+    min-height: 80px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>💖 Click for Surprise 💖</h1>
-    <button onclick="showSurprise()">✨ Click Me ✨</button>
+<!-- Screen 1 -->
+<div class="screen active" id="screen1">
+    <h1>💖 A Little Game For You 💖</h1>
+    <button onclick="startGame()">✨ Tap to Begin ✨</button>
+</div>
 
-    <div id="imageContainer">
-        <h2>For You ❤️</h2>
-        <img id="randomImage" src="">
-    </div>
+<!-- Screen 2 -->
+<div class="screen" id="screen2">
+    <div class="typewriter" id="message"></div>
+    <button onclick="goToSurprise()">💫 Continue 💫</button>
+</div>
+
+<!-- Screen 3 -->
+<div class="screen" id="screen3">
+    <h1>💥 Ready for your surprise? 💥</h1>
+    <button onclick="showSurprise()">🎁 Reveal 🎁</button>
+</div>
+
+<!-- Screen 4 -->
+<div class="screen" id="screen4">
+    <h2>💖 This is for you 💖</h2>
+    <img id="image">
+    
+    <button class="whatsapp" onclick="shareWhatsApp()">📱 Send to My Love 💬</button>
+    <button onclick="restartGame()">🔁 Try Again</button>
 </div>
 
 <script>
 
+let selectedImage = null;
+
+// Switch screen
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+// Start game
+function startGame() {
+    showScreen("screen2");
+    typeMessage("Every click brings you closer to something special... 💖");
+}
+
+// Typewriter effect
+function typeMessage(text) {
+    let i = 0;
+    let el = document.getElementById("message");
+    el.innerHTML = "";
+
+    let interval = setInterval(() => {
+        el.innerHTML += text[i];
+        i++;
+        if (i >= text.length) clearInterval(interval);
+    }, 40);
+}
+
+// Go to surprise screen
+function goToSurprise() {
+    showScreen("screen3");
+}
+
+// Show surprise
 function showSurprise() {
+    showScreen("screen4");
 
-    // Hide button
-    document.querySelector("button").style.display = "none";
+    // Random image
+    let num = Math.floor(Math.random() * 48) + 1;
+    selectedImage = num;
 
-    // BLAST EFFECT 💥
+    let formatted = num.toString().padStart(2, '0');
+    document.getElementById("image").src = `images/${formatted}.jpg`;
+
+    // Blast 💥
     document.body.animate([
         { transform: 'scale(1)' },
         { transform: 'scale(1.2)' },
         { transform: 'scale(1)' }
-    ], {
-        duration: 500
-    });
+    ], { duration: 500 });
 
-    // Random image (01–48)
-    let num = Math.floor(Math.random() * 48) + 1;
-    let formatted = num.toString().padStart(2, '0');
+    confetti();
+}
 
-    let img = document.getElementById("randomImage");
-    img.src = `images/${formatted}.jpg`;
-
-    document.getElementById("imageContainer").style.display = "block";
-
-    // CONFETTI 🎉
-    for (let i = 0; i < 80; i++) {
+// Confetti 🎉
+function confetti() {
+    for (let i = 0; i < 100; i++) {
         let el = document.createElement("div");
         el.innerHTML = ["💖","💕","✨","🫂","🌸"][Math.floor(Math.random()*5)];
         el.style.position = "fixed";
@@ -107,6 +168,26 @@ function showSurprise() {
 
         setTimeout(() => el.remove(), 4000);
     }
+}
+
+// Share to WhatsApp
+function shareWhatsApp() {
+    let num = selectedImage.toString().padStart(2, '0');
+
+    let message =
+        `💖 I just played your love game 💖%0A` +
+        `I got surprise #${num} 😍%0A` +
+        `Come see it 💕`;
+
+    let phone = "923086649113";
+
+    let url = `https://wa.me/${phone}?text=${message}`;
+    window.open(url, '_blank');
+}
+
+// Restart
+function restartGame() {
+    showScreen("screen1");
 }
 
 </script>
